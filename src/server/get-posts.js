@@ -1,14 +1,14 @@
 import { Pool } from 'pg';
-import createTable from './create-table';
+import { createTable } from '../config';
 
 export async function handler(req) {
   //
-  // Make sure the URL is set in the .env file
+  // Make sure the DATABASE_URL is set in the .env file
   if (!process.env.DATABASE_URL) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: 'No DATABASE_URL found (see .env.example file)',
+        error: 'No database found (see .env.example file)',
       }),
     };
   }
@@ -28,7 +28,7 @@ export async function handler(req) {
     await database.end();
     return { statusCode: 200, body: JSON.stringify({ posts: result.rows }) };
 
-    // If there is no table, create one with some dummy data
+    // If there is no table, create one with some mock data
   } catch (err) {
     if (err.message === `relation "posts" does not exist`) {
       createTable(database);

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import Form from './Form';
 import './App.css';
-
-// This is our API endpoint
 const API = `/.netlify/functions`;
 
 // State for loading, error and posts
@@ -28,14 +26,14 @@ const App = () => {
     }
   }
 
-  // Functions for adding and deleting posts
+  // Add or delete posts
   async function addPost({ title, content }) {
     try {
       if (!title || !content) return;
       setLoading(true);
       const body = JSON.stringify({ title, content });
       await fetch(`${API}/add-post`, { method: 'POST', body });
-      return getPosts();
+      return getPosts(); // Refresh all posts
     } catch (error) {
       setError(error);
     }
@@ -45,7 +43,7 @@ const App = () => {
       setLoading(true);
       const body = JSON.stringify({ id });
       await fetch(`${API}/delete-post`, { method: 'POST', body });
-      return getPosts();
+      return getPosts(); // Refresh all posts
     } catch (error) {
       setError(error);
     }
@@ -58,7 +56,7 @@ const App = () => {
   // Otherwise, show the Form and a list of Posts
   return (
     <div className="App">
-      <header className="App-header">SimpleBlog</header>
+      <header>SimpleBlog</header>
       <Form onAdd={({ title, content }) => addPost({ title, content })} />
       <div>
         {posts.map((post) => (

@@ -1,4 +1,4 @@
-export default async (database) => {
+export const createTable = async (database) => {
   const query = `-- Drop the table if it exists.
 DROP TABLE IF EXISTS POSTS;
 

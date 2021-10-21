@@ -1,11 +1,13 @@
 import React from 'react';
 
+// New Post form
 const Form = ({ onAdd }) => {
-  // Store the user input in state variables
+  // Store the input in state variables when the user types
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState('');
+
   return (
-    <div style={styles.container}>
+    <form>
       <input
         placeholder={'Title'}
         value={title}
@@ -15,27 +17,13 @@ const Form = ({ onAdd }) => {
         placeholder={'Content'}
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        style={styles.textarea}
       />
 
       {/* When the user clicks the button, call the onAdd prop */}
       <button onClick={() => onAdd({ title, content })}>Post</button>
       <hr />
-    </div>
+    </form>
   );
-};
-
-// (Some styles for the form)
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: 400,
-    margin: '32px auto 0 auto',
-  },
-  textarea: {
-    margin: '8px 0',
-  },
 };
 
 export default Form;
