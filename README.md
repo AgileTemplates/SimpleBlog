@@ -25,4 +25,4 @@ Inside the `src` folder you will find two directories: `server` and `client`.
 
 ## ✅ The tasks
 
-You are now ready to work on this project. Click the 'Projects' tab on github to get started.
+You are now ready to work on this project. Click the 'Projects' tab at the top of this page to get started.
