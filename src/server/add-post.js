@@ -1,11 +1,14 @@
 import { Pool } from 'pg';
 
 export async function handler(req) {
+  //
+  // Get params
+  const { title, content } = JSON.parse(req.body);
+
   // Connect to database
   const ssl = { rejectUnauthorized: false };
   const connectionString = process.env.DATABASE_URL;
   const database = new Pool({ connectionString, ssl });
-  const { title, content } = JSON.parse(req.body);
 
   try {
     // Add a new post
