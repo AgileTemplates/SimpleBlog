@@ -8,6 +8,8 @@ This is a simple blogging application.
 yarn # install dependencies
 npm install netlify-cli -g # install netlify dev
 yarn dev # Start client and server
+
+Visit [http://localhost:8888](http://localhost:8888).
 ```
 
 ## 🔗 Linking a database
@@ -19,7 +21,7 @@ Set up a free database at [ElephantSQL](https://www.elephantsql.com). Once it is
 It will look something like this:
 
 ```
-DATABASE_URL=postgres://xxxxx:xxxxx-xxxxxxxxxx@xxx.db.elephantsql.com/xxxxxxx
+DATABASE_URL="postgres://xxxxx:xxxxx-xxxxxxxxxx@xxx.db.elephantsql.com/xxxxxxx"
 ```
 
 In order to load new environment variables you may need to quit the process and restart. In your terminal type Crtl+C to quit and then run `yarn dev` again to restart.
