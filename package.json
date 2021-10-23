@@ -13,6 +13,7 @@
     "styled-components": "^5.3.1"
   },
   "scripts": {
+    "dev": "npx netlify dev",
     "start:dev": "npx netlify dev",
     "start": "react-scripts start",
     "start:lambda": "netlify-lambda serve src/server",
