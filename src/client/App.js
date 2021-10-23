@@ -12,7 +12,9 @@ const App = () => {
   const [posts, setPosts] = useState([]);
 
   // When the component renders for the first time, fetch all the posts
-  useEffect(getPosts, []);
+  useEffect(() => {
+    getPosts();
+  }, []);
   async function getPosts() {
     try {
       setLoading(true);

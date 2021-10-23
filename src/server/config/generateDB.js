@@ -1,4 +1,4 @@
-export const generateDB = async (database) => {
+export default async (database) => {
   const query = `
     -- Delete the table if it exists
     DROP TABLE IF EXISTS POSTS;
