@@ -1,9 +1,10 @@
 import { Pool } from 'pg';
-import { generateDB } from '../config';
+import generateDB from './config/generateDB';
 
 export async function handler(req) {
   //
   // Make sure the DATABASE_URL is set in the .env file
+  console.log({ DATABASE_URL: process.env.DATABASE_URL });
   if (!process.env.DATABASE_URL) {
     return {
       statusCode: 500,
