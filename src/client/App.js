@@ -78,7 +78,9 @@ const App = () => {
     return (
       <div className="App">
         <header>SimpleBlog Post {postID}</header>
-        <Link to={`/`}>Home</Link>;
+        <p>
+          <Link to={`/`}>Home</Link>
+        </p>
         {!post ? (
           <p>Post with ID {postID} not found</p>
         ) : (
