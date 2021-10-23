@@ -9,6 +9,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [postToEdit, setPostToEdit] = useState(null);
 
   // When the component renders for the first time, fetch all the posts
   useEffect(() => {
@@ -50,6 +51,17 @@ const App = () => {
       setError(error);
     }
   }
+  async function editPost({ id, title, content }) {
+    try {
+      setLoading(true);
+      const body = JSON.stringify({ id, title, content });
+      await fetch(`${API}/edit-post`, { method: 'POST', body });
+      setPostToEdit(null);
+      return getPosts(); // Refresh all posts
+    } catch (error) {
+      setError(error);
+    }
+  }
 
   // If error or loading, show a message
   if (error) return <p>Error: {error.message}</p>;
@@ -59,11 +71,21 @@ const App = () => {
   return (
     <div className="App">
       <header>SimpleBlog</header>
-      <Form onAdd={({ title, content }) => addPost({ title, content })} />
+      <Form
+        onAdd={({ title, content }) => addPost({ title, content })}
+        postToEdit={postToEdit}
+        onEditSave={editPost}
+        onEditCancel={() => setPostToEdit(null)}
+      />
       <div>
-        {posts.map((post) => (
-          <Post data={post} onDelete={() => deletePost({ id: post.id })} />
-        ))}
+        {!postToEdit &&
+          posts.map((post) => (
+            <Post
+              data={post}
+              onDelete={() => deletePost({ id: post.id })}
+              onEdit={() => setPostToEdit(post)}
+            />
+          ))}
       </div>
       <hr />
     </div>
