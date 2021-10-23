@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { createTable } from '../config';
+import { generateDB } from '../config';
 
 export async function handler(req) {
   //
@@ -31,7 +31,7 @@ export async function handler(req) {
     // If there is no table, create one with some mock data
   } catch (err) {
     if (err.message === `relation "posts" does not exist`) {
-      createTable(database);
+      generateDB(database);
       return await handler(req);
     }
 
