@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { generateDB } from '../config';
+import { generateDB } from './config/generateDB';
 
 export async function handler(req) {
   //
