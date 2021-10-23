@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // New Post form
 const Form = ({ onAdd }) => {
   // Store the input in state variables when the user types
-  const [title, setTitle] = React.useState('');
-  const [content, setContent] = React.useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   return (
     <form>
