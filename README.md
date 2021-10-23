@@ -14,7 +14,13 @@ yarn dev # Start client and server
 
 When you first run the app locally you will get an error message saying `no database found`. This app needs a database to function.
 
-Set up a free database at [ElephantSQL](https://www.elephantsql.com). Once it is created you will get a Database URL. We need to add this URL to your environment so the app knows where to save data. Copy the URL and paste it into the `.env.example` file.
+Set up a free database at [ElephantSQL](https://www.elephantsql.com). Once it is created you will get a Database URL. We need to add this Database URL to your environment so the app knows where to save data. Copy the Database URL and paste it into the `.env.example` file.
+
+It will look something like this:
+
+```
+DATABASE_URL=postgres://xxxxx:xxxxx-xxxxxxxxxx@xxx.db.elephantsql.com/xxxxxxx
+```
 
 ## 💻 The code
 
