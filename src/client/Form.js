@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Input, Textarea, Button, Stack } from '@chakra-ui/react';
 
 // New Post form
 const Form = ({ onAdd }) => {
@@ -7,22 +8,23 @@ const Form = ({ onAdd }) => {
   const [content, setContent] = useState('');
 
   return (
-    <form>
-      <input
+    <Stack>
+      <Input
         placeholder={'Title'}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <textarea
+      <Textarea
         placeholder={'Content'}
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
 
       {/* When the user clicks the button, call the onAdd prop */}
-      <button onClick={() => onAdd({ title, content })}>Post</button>
-      <hr />
-    </form>
+      <Button colorScheme="green" onClick={() => onAdd({ title, content })}>
+        Post
+      </Button>
+    </Stack>
   );
 };
 
