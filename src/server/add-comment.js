@@ -11,7 +11,7 @@ export async function handler(req) {
   const database = new Pool({ connectionString, ssl });
 
   try {
-    // Add a new post
+    // Add a new comment
     await database.query(
       `insert into comments (comment, post_id, date) values ($1, $2, now())`,
       [comment, post_id]
