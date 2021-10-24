@@ -9,6 +9,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [isCensored, setIsCensored] = useState(false);
 
   // When the component renders for the first time, fetch all the posts
   useEffect(() => {
@@ -61,8 +62,21 @@ const App = () => {
       <header>SimpleBlog</header>
       <Form onAdd={({ title, content }) => addPost({ title, content })} />
       <div>
+        <hr />
+        <label>
+          <input
+            type="checkbox"
+            defaultChecked={isCensored}
+            onChange={() => setIsCensored(!isCensored)}
+          />
+          Censor Bad Words
+        </label>
         {posts.map((post) => (
-          <Post data={post} onDelete={() => deletePost({ id: post.id })} />
+          <Post
+            data={post}
+            onDelete={() => deletePost({ id: post.id })}
+            censorBadWords={isCensored}
+          />
         ))}
       </div>
       <hr />
