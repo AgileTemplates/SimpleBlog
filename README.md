@@ -37,6 +37,8 @@ Inside the `src` folder you will find two directories: `server` and `client`.
 - `server` contains the Node code that runs the server.
 - `client` contains the React code that runs the client.
 
-## ✅ The tasks
+## ✅ Issues
 
-You are now ready to work on this project. Click the 'Projects' tab at the top of this page to get started.
+You are now ready to start working on this project. You have been given a list of issues. Each issue should be completed **in isolation**. once you have completed an issue create a Pull Request but do not merge it. An issue is considered complete once you have opened the pull request. You can then go back to `main`, create a new branch and work on the next issue.
+
+Click the 'Projects' tab at the top of this page to get started.
