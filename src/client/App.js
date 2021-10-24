@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import Form from './Form';
 import './App.css';
-const API = `/.netlify/functions`;
+export const API = `/.netlify/functions`;
 
 // State for loading, error and posts
 const App = () => {
