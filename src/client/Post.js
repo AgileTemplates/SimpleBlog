@@ -6,11 +6,22 @@ import { API } from './App';
 const Post = ({ data, onDelete }) => {
   const [comments, setComments] = useState();
 
+  // List all of the comments when the user clicks 'show comments'
   async function getComments() {
     const response = await fetch(`${API}/get-comments?post_id=${data.id}`);
     const { comments } = await response.json();
     setComments(comments);
   }
+
+  // Allow user to add a new comment
+  async function addComment() {
+    const comment = prompt('Enter your comment');
+    if (!comment) return;
+    const body = JSON.stringify({ comment, post_id: data.id });
+    await fetch(`${API}/add-comment`, { method: 'POST', body });
+    return getComments(); // Refresh comments
+  }
+
   return (
     <div style={{ marginBottom: 24 }}>
       <hr />
@@ -25,10 +36,8 @@ const Post = ({ data, onDelete }) => {
       </div>
       <button onClick={onDelete}>delete</button>
 
-      {/* Show a button to fetch them */}
-      {!comments && <button onClick={getComments}>get comments</button>}
-
-      {/* When the user clicks the button, list all of the comments  */}
+      {/* Comments button and list */}
+      {!comments && <button onClick={getComments}>show comments</button>}
       {comments && (
         <>
           <div>
@@ -38,6 +47,7 @@ const Post = ({ data, onDelete }) => {
             ))}
           </div>
           {!comments.length && <p>No comments yet!</p>}
+          <button onClick={addComment}>add comment</button>
         </>
       )}
     </div>
