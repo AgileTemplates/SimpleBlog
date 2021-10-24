@@ -11,7 +11,7 @@ export async function handler(req) {
   const database = new Pool({ connectionString, ssl });
 
   try {
-    // Add a new post
+    // Get all comments for a post
     const result = await database.query(
       `select * from comments where post_id = $1`,
       [post_id]
