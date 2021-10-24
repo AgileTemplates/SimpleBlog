@@ -21,7 +21,6 @@ export async function handler(req) {
     // If error, return error
   } catch (err) {
     await database.end();
-    console.log({ err });
     return {
       statusCode: 500,
       body: JSON.stringify({ error: err.message }),
