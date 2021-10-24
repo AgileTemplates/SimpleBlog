@@ -1,10 +1,10 @@
 export default async (database) => {
   const query = `
     -- Delete the table if it exists
-    DROP TABLE IF EXISTS POSTS;
+    drop table if exists posts;
 
     -- Create the table
-    CREATE TABLE posts (
+    create table posts (
         id serial primary key,
         title text not null,
         content text not null,
