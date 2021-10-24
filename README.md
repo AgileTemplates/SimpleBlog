@@ -8,9 +8,11 @@ This is a simple blogging application.
 yarn # install dependencies
 npm install netlify-cli -g # install netlify dev
 yarn dev # Start client and server
+```
 
 Visit [http://localhost:8888](http://localhost:8888).
-```
+
+(Do not use localhost:3000, it will not work).
 
 ## 🔗 Linking a database
 
