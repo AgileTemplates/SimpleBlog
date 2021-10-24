@@ -26,6 +26,8 @@ DATABASE_URL="postgres://xxxxx:xxxxx-xxxxxxxxxx@xxx.db.elephantsql.com/xxxxxxx"
 
 In order to load new environment variables you may need to quit the process and restart. In your terminal type Crtl+C to quit and then run `yarn dev` again to restart.
 
+A table and some mock data will automatically be created for you.
+
 ## 💻 The code
 
 Inside the `src` folder you will find two directories: `server` and `client`.
