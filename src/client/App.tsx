@@ -4,11 +4,16 @@ import Form from './Form';
 import './App.css';
 const API = `/.netlify/functions`;
 
+// Define types
+export type Post = { id: number; date: string; title: string; content: string };
+export type AddArgs = { title: string; content: string };
+export type DeleteArgs = { id: number };
+
 // State for loading, error and posts
 const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   // When the component renders for the first time, fetch all the posts
   useEffect(() => {
@@ -21,7 +26,7 @@ const App = () => {
       const { posts, error } = await response.json();
       if (error) throw new Error(error);
       setPosts(posts);
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
     } finally {
       setLoading(false);
@@ -29,24 +34,24 @@ const App = () => {
   }
 
   // Add or delete posts
-  async function addPost({ title, content }) {
+  async function addPost({ title, content }: AddArgs) {
     try {
       if (!title || !content) return;
       setLoading(true);
       const body = JSON.stringify({ title, content });
       await fetch(`${API}/add-post`, { method: 'POST', body });
       return getPosts(); // Refresh all posts
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
     }
   }
-  async function deletePost({ id }) {
+  async function deletePost({ id }: DeleteArgs) {
     try {
       setLoading(true);
       const body = JSON.stringify({ id });
       await fetch(`${API}/delete-post`, { method: 'POST', body });
       return getPosts(); // Refresh all posts
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
     }
   }
@@ -59,7 +64,9 @@ const App = () => {
   return (
     <div className="App">
       <header>SimpleBlog</header>
-      <Form onAdd={({ title, content }) => addPost({ title, content })} />
+      <Form
+        onAdd={({ title, content }: AddArgs) => addPost({ title, content })}
+      />
       <div>
         {posts.map((post) => (
           <Post data={post} onDelete={() => deletePost({ id: post.id })} />

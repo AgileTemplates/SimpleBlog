@@ -1,7 +1,9 @@
 import { Pool } from 'pg';
+import { HandlerEvent } from '@netlify/functions';
 import generateDB from './config/generateDB';
 
-export async function handler(req) {
+// const handler: Handler = async (req) => {
+export async function handler(req: HandlerEvent): Promise<any> {
   //
   // Make sure the DATABASE_URL is set in the .env file
   if (!process.env.DATABASE_URL) {
@@ -29,10 +31,10 @@ export async function handler(req) {
     return { statusCode: 200, body: JSON.stringify({ posts: result.rows }) };
 
     // If there is no table, create one with some mock data
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === `relation "posts" does not exist`) {
       generateDB(database);
-      return await handler(req);
+      return (await handler(req)) as any;
     }
 
     // If error, return error
@@ -43,3 +45,5 @@ export async function handler(req) {
     };
   }
 }
+
+// export default handler;

@@ -1,4 +1,6 @@
-export default async (database) => {
+import { Pool } from 'pg';
+
+export default async (database: Pool) => {
   const query = `
     -- Delete the table if it exists
     drop table if exists posts;
