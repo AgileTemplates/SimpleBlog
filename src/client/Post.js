@@ -2,7 +2,7 @@ import React from 'react';
 import TimeAgo from 'react-timeago';
 
 // A single blog post
-const Post = ({ data, onDelete }) => {
+const Post = ({ data, onDelete, onEdit }) => {
   return (
     <div style={{ marginBottom: 24 }}>
       <hr />
@@ -16,6 +16,7 @@ const Post = ({ data, onDelete }) => {
         <p>{data.content}</p>
       </div>
       <button onClick={onDelete}>delete</button>
+      <button onClick={onEdit}>edit</button>
     </div>
   );
 };

@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // New Post form
-const Form = ({ onAdd }) => {
+const Form = ({ onAdd, postToEdit, onEditSave, onEditCancel }) => {
   // Store the input in state variables when the user types
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+
+  // If we are editing a post, set the state variables to the post's values
+  useEffect(() => {
+    setTitle(postToEdit?.title || '');
+    setContent(postToEdit?.content || '');
+  }, [postToEdit]);
 
   return (
     <form>
@@ -20,7 +26,19 @@ const Form = ({ onAdd }) => {
       />
 
       {/* When the user clicks the button, call the onAdd prop */}
-      <button onClick={() => onAdd({ title, content })}>Post</button>
+      {!postToEdit ? (
+        <button onClick={() => onAdd({ title, content })}>Post</button>
+      ) : (
+        <>
+          <button
+            onClick={() => onEditSave({ id: postToEdit.id, title, content })}
+          >
+            Save
+          </button>
+          <button onClick={() => onEditCancel()}>Cancel</button>
+        </>
+      )}
+
       <hr />
     </form>
   );
