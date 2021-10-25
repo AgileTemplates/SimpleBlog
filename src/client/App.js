@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, useRouteMatch, Route, Link } from 'react-router-dom';
 import Post from './Post';
 import Form from './Form';
 import './App.css';
@@ -55,10 +56,10 @@ const App = () => {
   if (error) return <p>Error: {error.message}</p>;
   if (loading) return <p>Loading...</p>;
 
-  // Otherwise, show the Form and a list of Posts
-  return (
+  // Show the home page
+  const HomePage = () => (
     <div className="App">
-      <header>SimpleBlog</header>
+      <header>SimpleBlog Home</header>
       <Form onAdd={({ title, content }) => addPost({ title, content })} />
       <div>
         {posts.map((post) => (
@@ -67,6 +68,34 @@ const App = () => {
       </div>
       <hr />
     </div>
+  );
+
+  // Show an individual post page
+  const PostPage = () => {
+    let { params } = useRouteMatch();
+    const postID = +params.id;
+    const post = posts.find(({ id }) => id === postID);
+    return (
+      <div className="App">
+        <header>SimpleBlog Post {postID}</header>
+        <p>
+          <Link to={`/`}>Home</Link>
+        </p>
+        {!post ? (
+          <p>Post with ID {postID} not found</p>
+        ) : (
+          <Post data={post} onDelete={() => deletePost({ id: postID })} />
+        )}
+      </div>
+    );
+  };
+
+  // Routing
+  return (
+    <BrowserRouter>
+      <Route path="/:id" children={<PostPage />} />
+      <Route exact path="/" children={<HomePage />} />
+    </BrowserRouter>
   );
 };
 

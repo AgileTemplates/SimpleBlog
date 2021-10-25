@@ -1,8 +1,11 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
 
+import { Link } from 'react-router-dom';
+
 // A single blog post
 const Post = ({ data, onDelete }) => {
+  const isHomePage = window.location.pathname === '/';
   return (
     <div style={{ marginBottom: 24 }}>
       <hr />
@@ -15,6 +18,9 @@ const Post = ({ data, onDelete }) => {
 
         <p>{data.content}</p>
       </div>
+
+      {/* Only show the link if on the homepage */}
+      {isHomePage && <Link to={`/${data.id}`}>View</Link>}
       <button onClick={onDelete}>delete</button>
     </div>
   );
