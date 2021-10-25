@@ -1,9 +1,10 @@
+import { HandlerEvent } from '@netlify/functions';
 import { Pool } from 'pg';
 
-export async function handler(req) {
+export async function handler(req: HandlerEvent) {
   //
   // Get params
-  const { title, content } = JSON.parse(req.body);
+  const { id } = JSON.parse(`${req.body}`);
 
   // Connect to database
   const ssl = { rejectUnauthorized: false };
@@ -12,17 +13,14 @@ export async function handler(req) {
 
   try {
     // Add a new post
-    await database.query(
-      `insert into posts (title, content, date) values ($1, $2, now())`,
-      [title, content]
-    );
+    await database.query(`delete from posts where id = $1`, [id]);
 
     // End the connection and return a success (200) response
     await database.end();
     return { statusCode: 200 };
 
     // If error, return error
-  } catch (err) {
+  } catch (err: any) {
     await database.end();
     return {
       statusCode: 500,

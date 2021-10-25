@@ -1,8 +1,10 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
+import { Post as PostType } from './App';
 
 // A single blog post
-const Post = ({ data, onDelete }) => {
+type PostProps = { data: PostType; onDelete: () => void };
+const Post = ({ data, onDelete }: PostProps) => {
   return (
     <div style={{ marginBottom: 24 }}>
       <hr />

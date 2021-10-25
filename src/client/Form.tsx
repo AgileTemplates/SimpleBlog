@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { AddArgs } from './App';
 
 // New Post form
-const Form = ({ onAdd }) => {
+type FormProps = { onAdd: (arg0: AddArgs) => void };
+const Form = ({ onAdd }: FormProps) => {
   // Store the input in state variables when the user types
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
