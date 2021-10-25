@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import {
+  ChakraProvider,
+  Box,
+  Heading,
+  Divider,
+  Container,
+  Stack,
+} from '@chakra-ui/react';
 import Post from './Post';
 import Form from './Form';
-import './App.css';
 const API = `/.netlify/functions`;
 
 // State for loading, error and posts
@@ -57,17 +64,25 @@ const App = () => {
 
   // Otherwise, show the Form and a list of Posts
   return (
-    <div className="App">
-      <header>SimpleBlog</header>
-      <Form onAdd={({ title, content }) => addPost({ title, content })} />
-      <div>
-        {posts.map((post) => (
-          <Post data={post} onDelete={() => deletePost({ id: post.id })} />
-        ))}
-      </div>
-      <hr />
-    </div>
+    <Container>
+      <Stack>
+        <Heading size="3xl" marginY={4}>
+          SimpleBlog
+        </Heading>
+        <Form onAdd={({ title, content }) => addPost({ title, content })} />
+        <Box>
+          {posts.map((post) => (
+            <Post data={post} onDelete={() => deletePost({ id: post.id })} />
+          ))}
+        </Box>
+        <Divider />
+      </Stack>
+    </Container>
   );
 };
 
-export default App;
+export default () => (
+  <ChakraProvider>
+    <App />
+  </ChakraProvider>
+);
