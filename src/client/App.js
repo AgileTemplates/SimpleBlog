@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import Post from './Post';
+import Note from './Note';
 import Form from './Form';
 import './App.css';
 const API = `/.netlify/functions`;
 
-// State for loading, error and posts
+// State for loading, error and notes
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [posts, setPosts] = useState([]);
+  const [notes, setNotes] = useState([]);
 
-  // When the component renders for the first time, fetch all the posts
+  // When the component renders for the first time, fetch all the notes
   useEffect(() => {
-    getPosts();
+    getNotes();
   }, []);
-  async function getPosts() {
+  async function getNotes() {
     try {
       setLoading(true);
-      const response = await fetch(`${API}/get-posts`);
-      const { posts, error } = await response.json();
+      const response = await fetch(`${API}/get-notes`);
+      const { notes, error } = await response.json();
       if (error) throw new Error(error);
-      setPosts(posts);
+      setNotes(notes);
     } catch (error) {
       setError(error);
     } finally {
@@ -28,24 +28,24 @@ const App = () => {
     }
   }
 
-  // Add or delete posts
-  async function addPost({ title, content }) {
+  // Add or delete notes
+  async function addNote({ title, content }) {
     try {
       if (!title || !content) return;
       setLoading(true);
       const body = JSON.stringify({ title, content });
-      await fetch(`${API}/add-post`, { method: 'POST', body });
-      return getPosts(); // Refresh all posts
+      await fetch(`${API}/add-note`, { method: 'POST', body });
+      return getNotes(); // Refresh all notes
     } catch (error) {
       setError(error);
     }
   }
-  async function deletePost({ id }) {
+  async function deleteNote({ id }) {
     try {
       setLoading(true);
       const body = JSON.stringify({ id });
-      await fetch(`${API}/delete-post`, { method: 'POST', body });
-      return getPosts(); // Refresh all posts
+      await fetch(`${API}/delete-note`, { method: 'POST', body });
+      return getNotes(); // Refresh all notes
     } catch (error) {
       setError(error);
     }
@@ -55,14 +55,14 @@ const App = () => {
   if (error) return <p>Error: {error.message}</p>;
   if (loading) return <p>Loading...</p>;
 
-  // Otherwise, show the Form and a list of Posts
+  // Otherwise, show the Form and a list of notes
   return (
     <div className="App">
-      <header>SimpleBlog</header>
-      <Form onAdd={({ title, content }) => addPost({ title, content })} />
+      <header>SimpleNotes</header>
+      <Form onAdd={({ title, content }) => addNote({ title, content })} />
       <div>
-        {posts.map((post) => (
-          <Post data={post} onDelete={() => deletePost({ id: post.id })} />
+        {notes?.map((note) => (
+          <Note data={note} onDelete={() => deleteNote({ id: note.id })} />
         ))}
       </div>
       <hr />
