@@ -1,21 +1,14 @@
-import { Pool } from 'pg';
+import postgres from './config/postgres';
 
 export async function handler(req) {
   //
   // Get params
-  const { title, content } = JSON.parse(req.body);
-
-  // Connect to database
-  const ssl = { rejectUnauthorized: false };
-  const connectionString = process.env.DATABASE_URL;
-  const database = new Pool({ connectionString, ssl });
+  const record = JSON.parse(req.body);
+  const database = postgres();
 
   try {
     // Add a new post
-    await database.query(
-      `insert into posts (title, content, date) values ($1, $2, now())`,
-      [title, content]
-    );
+    await database`insert into posts ${database(record, 'title', 'content')}`;
 
     // End the connection and return a success (200) response
     await database.end();
