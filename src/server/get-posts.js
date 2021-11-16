@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+import postgres from './config/postgres';
 import generateDB from './config/generateDB';
 
 export async function handler(req) {
@@ -13,20 +13,13 @@ export async function handler(req) {
     };
   }
 
-  // Connect to the database
-  const ssl = { rejectUnauthorized: false };
-  const connectionString = process.env.DATABASE_URL;
-  const database = new Pool({ connectionString, ssl });
-
+  const database = postgres();
   try {
     // Fetch all posts
-    const result = await database.query(
-      'SELECT * FROM posts ORDER BY date desc;'
-    );
-
-    // Close the connection and return the result
+    const posts = await database`
+      SELECT * FROM posts ORDER BY date desc;`;
     await database.end();
-    return { statusCode: 200, body: JSON.stringify({ posts: result.rows }) };
+    return { statusCode: 200, body: JSON.stringify({ posts }) };
 
     // If there is no table, create one with some mock data
   } catch (err) {
